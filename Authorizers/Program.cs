@@ -35,10 +35,26 @@ namespace Authorizers
         IPermissionAuthorizer<Company, Update>, 
         IPermissionAuthorizer<Company, Read>
     {
-        public bool Grants(int id, User user) => id % 2 != 0;
+        public bool Grants(int resourceId, UserId userId) => resourceId % 2 != 0;
     }
 
     public class Company
     {
+    }
+
+    class CompanyController
+    {
+        public CompanyController(IAuthorizer authorizer)
+        {
+            Authorizer = authorizer;
+        }
+
+        IAuthorizer Authorizer { get; }
+
+        public void Delete(int id)
+        {
+            Authorizer.Authorize<Company, Delete>(id);
+            // ...
+        }
     }
 }

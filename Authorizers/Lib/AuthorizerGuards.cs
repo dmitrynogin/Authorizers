@@ -8,31 +8,31 @@ namespace Authorizers.Lib
 {
     public static class AuthorizerGuards
     {
-        public static void Authorize<TData, TPermission>(this IAuthorizer authorizer)
+        public static void Authorize<TResource, TPermission>(this IAuthorizer authorizer)
             where TPermission : Permission
         {
-            if (!authorizer.Grants<TData, TPermission>())
+            if (!authorizer.Grants<TResource, TPermission>())
                 throw new UnauthorizedAccessException();
         }
 
-        public static void Authorize<TData, TPermission>(this IAuthorizer authorizer, User user)
+        public static void Authorize<TResource, TPermission>(this IAuthorizer authorizer, UserId userId)
             where TPermission : Permission
         {
-            if (!authorizer.Grants<TData, TPermission>(user))
+            if (!authorizer.Grants<TResource, TPermission>(userId))
                 throw new UnauthorizedAccessException();
         }
 
-        public static void Authorize<TData, TPermission>(this IAuthorizer authorizer, int id)
+        public static void Authorize<TResource, TPermission>(this IAuthorizer authorizer, int resourceId)
             where TPermission : Permission
         {
-            if (!authorizer.Grants<TData, TPermission>(id))
+            if (!authorizer.Grants<TResource, TPermission>(resourceId))
                 throw new UnauthorizedAccessException();
         }
 
-        public static void Authorize<TData, TPermission>(this IAuthorizer authorizer, int id, User user)
+        public static void Authorize<TResource, TPermission>(this IAuthorizer authorizer, int resourceId, UserId userId)
             where TPermission : Permission
         {
-            if (!authorizer.Grants<TData, TPermission>(id, user))
+            if (!authorizer.Grants<TResource, TPermission>(resourceId, userId))
                 throw new UnauthorizedAccessException();
         }
     }

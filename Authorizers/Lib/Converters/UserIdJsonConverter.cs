@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Authorizers.Lib.Converters
 {
-    class UserJsonConverter : JsonConverter
+    class UserIdJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType) =>
-            objectType == typeof(User);
+            objectType == typeof(UserId);
 
         public override object ReadJson(
             JsonReader reader,
@@ -18,7 +18,7 @@ namespace Authorizers.Lib.Converters
             object existingValue,
             JsonSerializer serializer)
         {
-            return new User(reader.ReadAsInt32() ?? 0);
+            return new UserId(reader.ReadAsInt32() ?? 0);
         }
         
         public override void WriteJson(
@@ -26,7 +26,7 @@ namespace Authorizers.Lib.Converters
               object value,
               JsonSerializer serializer)
         {
-            writer.WriteValue(((User)value).Id);
+            writer.WriteValue((int)(UserId)value);
         }
     }
 }

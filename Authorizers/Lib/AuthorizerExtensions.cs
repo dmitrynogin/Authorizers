@@ -8,16 +8,16 @@ namespace Authorizers.Lib
 {
     public static class AuthorizerExtensions
     {
-        public static bool Grants<TData, TPermission>(this IAuthorizer authorizer)
+        public static bool Grants<TResource, TPermission>(this IAuthorizer authorizer)
             where TPermission : Permission =>
-            authorizer.Grants<TData, TPermission>(0, User.Authenticated);
+            authorizer.Grants<TResource, TPermission>(0, UserId.Authenticated);
 
-        public static bool Grants<TData, TPermission>(this IAuthorizer authorizer, User user)
+        public static bool Grants<TResource, TPermission>(this IAuthorizer authorizer, UserId userId)
             where TPermission : Permission =>
-            authorizer.Grants<TData, TPermission>(0, user);
+            authorizer.Grants<TResource, TPermission>(0, userId);
 
-        public static bool Grants<TData, TPermission>(this IAuthorizer authorizer, int id)
+        public static bool Grants<TResource, TPermission>(this IAuthorizer authorizer, int resourceId)
             where TPermission : Permission =>
-            authorizer.Grants<TData, TPermission>(id, User.Authenticated);
+            authorizer.Grants<TResource, TPermission>(resourceId, UserId.Authenticated);
     }
 }

@@ -15,13 +15,14 @@ namespace Authorizers.Lib
 
         IEnumerable<IPermissionAuthorizer> Authorizers { get; }
 
-        public bool Grants<TData, TPermission>(int id, User user) where TPermission : Permission
+        public bool Grants<TData, TPermission>(int resourceId, UserId userId) 
+            where TPermission : Permission
         {
             var authorizer = Authorizers.OfType<IPermissionAuthorizer<TData, TPermission>>().SingleOrDefault();
             if (authorizer == null)
                 throw new NotImplementedException();
 
-            return authorizer.Grants(id, user);
+            return authorizer.Grants(resourceId, userId);
         }
     }
 }

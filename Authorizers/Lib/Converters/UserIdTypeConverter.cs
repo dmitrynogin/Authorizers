@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Authorizers.Lib.Converters
 {
-    class UserTypeConverter : TypeConverter
+    class UserIdTypeConverter : TypeConverter
     {
         public override bool CanConvertFrom(
             ITypeDescriptorContext context, Type sourceType)
         {
             return
                 sourceType == typeof(int) ||
+                sourceType == typeof(string) ||
                 base.CanConvertFrom(context, sourceType);
         }
 
@@ -23,7 +24,10 @@ namespace Authorizers.Lib.Converters
             CultureInfo culture, object value)
         {
             if (value is int)
-                return new User((int)value);
+                return new UserId((int)value);
+
+            if (value is string)
+                return new UserId(int.Parse((string)value));
 
             return base.ConvertFrom(context, culture, value);
         }
@@ -44,7 +48,7 @@ namespace Authorizers.Lib.Converters
             Type destinationType)
         {
             if (destinationType == typeof(int))
-                return ((User)value).Id;
+                return ((int)(UserId)value);
 
             return base.ConvertTo(context, culture, value, destinationType);
         }

@@ -54,13 +54,13 @@
     <Compile Include="Lib\Authorizer.cs" />
     <Compile Include="Lib\AuthorizerExtensions.cs" />
     <Compile Include="Lib\AuthorizerGuards.cs" />
-    <Compile Include="Lib\Converters\UserJsonConverter.cs" />
-    <Compile Include="Lib\Converters\UserTypeConverter.cs" />
+    <Compile Include="Lib\Converters\UserIdJsonConverter.cs" />
+    <Compile Include="Lib\Converters\UserIdTypeConverter.cs" />
     <Compile Include="Lib\IAuthenticator.cs" />
     <Compile Include="Lib\IAuthorizer.cs" />
     <Compile Include="Lib\IAuthorizer{TData,TPermission}.cs" />
     <Compile Include="Lib\Permission.cs" />
-    <Compile Include="Lib\User.cs" />
+    <Compile Include="Lib\UserId.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
