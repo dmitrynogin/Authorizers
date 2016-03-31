@@ -10,8 +10,8 @@ namespace Authorizers.Lib
         public static readonly User Authenticated = new User(() => Authenticator?.UserId ?? 0);
         public static readonly User Impersonator = new User(() => Authenticator?.ImpersonatorId ?? 0);
 
-        public static bool IsAuthentificated => Authenticated != Anonymous;
-        public static bool IsImpersonated => IsAuthentificated && Authenticated != Impersonator;
+        public static bool IsAuthenticated => Authenticated != Anonymous;
+        public static bool IsImpersonated => IsAuthenticated && Authenticated != Impersonator;
 
         public User(int id)
             : this(() => id)
