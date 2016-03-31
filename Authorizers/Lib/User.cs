@@ -7,11 +7,11 @@ namespace Authorizers.Lib
         public static IAuthenticator Authenticator { get; set; }
 
         public static readonly User Anonymous = new User(0);
-        public static readonly User Authentificated = new User(() => Authenticator?.UserId ?? 0);
+        public static readonly User Authenticated = new User(() => Authenticator?.UserId ?? 0);
         public static readonly User Impersonator = new User(() => Authenticator?.ImpersonatorId ?? 0);
 
-        public static bool IsAuthentificated => Authentificated != Anonymous;
-        public static bool IsImpersonated => IsAuthentificated && Authentificated != Impersonator;
+        public static bool IsAuthentificated => Authenticated != Anonymous;
+        public static bool IsImpersonated => IsAuthentificated && Authenticated != Impersonator;
 
         public User(int id)
             : this(() => id)
