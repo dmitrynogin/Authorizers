@@ -4,19 +4,28 @@ namespace Authorizers.Lib
 {
     public struct User : IEquatable<User>
     {
-        public static readonly User Anonymous = 0;
-        public static readonly User Authentificated = -1;
-        public static readonly User Impersonator = -2;
+        public static IAuthenticator Authenticator { get; set; }
 
-        public static implicit operator User(int id) => new User(id);
+        public static readonly User Anonymous = new User(0);
+        public static readonly User Authentificated = new User(() => Authenticator?.UserId ?? 0);
+        public static readonly User Impersonator = new User(() => Authenticator?.ImpersonatorId ?? 0);
+
+        public static bool IsAuthentificated => Authentificated != Anonymous;
+        public static bool IsImpersonated => IsAuthentificated && Authentificated != Impersonator;
 
         public User(int id)
+            : this(() => id)
+        {
+        }
+        
+        User(Func<int> lookup)
             : this()
         {
-            Id = id;
+            Lookup = lookup;
         }
 
-        public int Id { get; }
+        public int Id => Lookup();
+        Func<int> Lookup { get; }
 
         public bool Equals(User other) =>
             Id == other.Id;

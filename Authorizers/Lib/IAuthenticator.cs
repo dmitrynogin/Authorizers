@@ -8,6 +8,7 @@ namespace Authorizers.Lib
 {
     public interface IAuthenticator
     {
-        int UserId(User user);
+        int UserId { get; }
+        int ImpersonatorId { get; }
     }
 }
