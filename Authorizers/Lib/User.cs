@@ -24,7 +24,7 @@ namespace Authorizers.Lib
             Lookup = lookup;
         }
 
-        public int Id => Lookup();
+        public int Id => Lookup?.Invoke() ?? 0;
         Func<int> Lookup { get; }
 
         public bool Equals(User other) =>
