@@ -25,12 +25,15 @@ namespace Authorizers
             IContainer container = builder.Build();
             var authorizer = container.Resolve<IAuthorizer>();
 
-            Console.WriteLine(authorizer.Grants<Company, Update>(1) == true);       
+            Console.WriteLine(authorizer.Grants<Company, Update>(1) == true);
+            Console.WriteLine(authorizer.Grants<Company, Read>(1) == true);
             Console.WriteLine(authorizer.Grants<Company, Update>(2) == false);
         }
     }
 
-    public class CompanyAuthorizer : IPermissionAuthorizer<Company, Update>
+    public class CompanyAuthorizer : 
+        IPermissionAuthorizer<Company, Update>, 
+        IPermissionAuthorizer<Company, Read>
     {
         public bool Grants(int id, User user) => id % 2 != 0;
     }
