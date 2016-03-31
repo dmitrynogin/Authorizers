@@ -4,7 +4,8 @@
     {
     }
 
-    public interface IPermissionAuthorizer<in TData, in TPermission> : IPermissionAuthorizer
+    public interface IPermissionAuthorizer<in TData, in TPermission> : IPermissionAuthorizer 
+        where TPermission : Permission
     {
         bool Grants(int id, User user);
     }

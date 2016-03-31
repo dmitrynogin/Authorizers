@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Authorizers.Lib.Converters;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 
 namespace Authorizers.Lib
 {
+    [TypeConverter(typeof(UserTypeConverter))]
+    [JsonConverter(typeof(UserJsonConverter))]
     public struct User : IEquatable<User>
     {
         public static IAuthenticator Authenticator { get; set; }
