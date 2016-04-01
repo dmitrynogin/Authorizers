@@ -67,8 +67,8 @@
     <Compile Include="Lib\Converters\UserIdTypeConverter.cs" />
     <Compile Include="Lib\IAuthenticator.cs" />
     <Compile Include="Lib\IAuthorizer.cs" />
-    <Compile Include="Lib\IAuthorizer{TData,TPermission}.cs" />
-    <Compile Include="Lib\Permission.cs" />
+    <Compile Include="Lib\IResourceAuthorizer{TResource,TAccess}.cs" />
+    <Compile Include="Lib\Access.cs" />
     <Compile Include="Lib\UserId.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -29,7 +29,7 @@ namespace Authorizers
 
             Console.WriteLine(authorizer.Grants<Company, Update>(1) == true);
             Console.WriteLine(authorizer.Grants<Company, Read>(1) == true);
-            Console.WriteLine(authorizer.Grants<Company, Update>(2) == false);
+            Console.WriteLine(authorizer.Grants<Factory, Access>(2) == false);
 
 
             var ctx = new EContext();
@@ -44,14 +44,17 @@ namespace Authorizers
         }
     }
 
-    public class CompanyAuthorizer : 
-        IPermissionAuthorizer<Company, Update>, 
-        IPermissionAuthorizer<Company, Read>
+    public class CompanyAuthorizer :
+        IResourceAuthorizer<Factory, Access> // Covarince + Contravariance
     {
         public bool Grants(int resourceId, UserId userId) => resourceId % 2 != 0;
     }
 
     public class Company
+    {
+    }
+
+    public class Factory : Company
     {
     }
 

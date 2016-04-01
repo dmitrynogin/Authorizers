@@ -8,7 +8,7 @@ namespace Authorizers.Lib
 {
     public interface IAuthorizer
     {
-        bool Grants<TResource, TPermission>(int resourceId, UserId userId)
-            where TPermission : Permission;
+        bool Grants<TResource, TAccess>(int resourceId, UserId userId)
+            where TAccess : Access;
     }
 }

@@ -8,17 +8,20 @@ namespace Authorizers.Lib
 {
     public class Authorizer : IAuthorizer
     {
-        public Authorizer(IEnumerable<IPermissionAuthorizer> authorizers)
+        public Authorizer(IEnumerable<IResourceAuthorizer> authorizers)
         {
             Authorizers = authorizers;
         }
 
-        IEnumerable<IPermissionAuthorizer> Authorizers { get; }
+        IEnumerable<IResourceAuthorizer> Authorizers { get; }
 
-        public bool Grants<TData, TPermission>(int resourceId, UserId userId) 
-            where TPermission : Permission
+        public bool Grants<TResource, TAccess>(int resourceId, UserId userId) 
+            where TAccess : Access
         {
-            var authorizer = Authorizers.OfType<IPermissionAuthorizer<TData, TPermission>>().SingleOrDefault();
+            var authorizer = Authorizers
+                .OfType<IResourceAuthorizer<TResource, TAccess>>()
+                .SingleOrDefault();
+
             if (authorizer == null)
                 throw new NotImplementedException();
 
