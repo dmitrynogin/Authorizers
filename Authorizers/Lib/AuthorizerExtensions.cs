@@ -10,7 +10,7 @@ namespace Authorizers.Lib
     {
         public static bool Grants<TResource, TAccess>(this IAuthorizer authorizer)
             where TAccess : Access =>
-            authorizer.Grants<TResource, TAccess>(0, UserId.Authenticated);
+            authorizer.Grants<TResource, TAccess>(0, UserId.Current);
 
         public static bool Grants<TResource, TAccess>(this IAuthorizer authorizer, UserId userId)
             where TAccess : Access =>
@@ -18,6 +18,6 @@ namespace Authorizers.Lib
 
         public static bool Grants<TResource, TAccess>(this IAuthorizer authorizer, int resourceId)
             where TAccess : Access =>
-            authorizer.Grants<TResource, TAccess>(resourceId, UserId.Authenticated);
+            authorizer.Grants<TResource, TAccess>(resourceId, UserId.Current);
     }
 }

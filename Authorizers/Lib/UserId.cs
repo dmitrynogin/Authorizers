@@ -12,11 +12,8 @@ namespace Authorizers.Lib
         public static IAuthenticator Authenticator { get; set; }
 
         public static readonly UserId Anonymous = new UserId(0);
-        public static readonly UserId Authenticated = new UserId(() => Authenticator?.UserId ?? 0);
-        public static readonly UserId Impersonator = new UserId(() => Authenticator?.ImpersonatorId ?? 0);
-
-        public static bool IsAuthenticated => Authenticated != Anonymous;
-        public static bool IsImpersonated => IsAuthenticated && Authenticated != Impersonator;
+        public static readonly UserId Current = new UserId(() => Authenticator?.CurrentUserId ?? 0);
+        public static readonly UserId Interactive = new UserId(() => Authenticator?.InteractiveUserId ?? 0);
 
         public UserId(int value)
             : this(() => value)
@@ -28,6 +25,10 @@ namespace Authorizers.Lib
         {
             GetValue = getValue;
         }
+
+        public bool Authenticated => this == Current && this != Anonymous;
+        public bool Impersonated => this == Current && Current != Interactive;
+        public bool Impersonating => this == Interactive && Current != Interactive;
 
         Func<int> GetValue { get; }
         int Value => GetValue?.Invoke() ?? 0;
