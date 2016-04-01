@@ -17,7 +17,7 @@ namespace Authorizers
             var builder = new ContainerBuilder();
             builder.RegisterSource(new ContravariantRegistrationSource());
 
-            builder.RegisterType<CompanyAuthorizer>()
+            builder.RegisterType<CorporationAuthorizer>()
                 .AsImplementedInterfaces();
             
             builder.RegisterType<Authorizer>()
@@ -29,7 +29,7 @@ namespace Authorizers
 
             Console.WriteLine(authorizer.Grants<Company, Update>(1) == true);
             Console.WriteLine(authorizer.Grants<Company, Read>(1) == true);
-            Console.WriteLine(authorizer.Grants<Factory, Access>(2) == false);
+            Console.WriteLine(authorizer.Grants<Corporation, Access>(2) == false);
 
 
             var ctx = new EContext();
@@ -44,8 +44,8 @@ namespace Authorizers
         }
     }
 
-    public class CompanyAuthorizer :
-        IResourceAuthorizer<Factory, Access> // Covarince + Contravariance
+    public class CorporationAuthorizer :
+        IResourceAuthorizer<Corporation, Access> // Covarince + Contravariance
     {
         public bool Grants(int resourceId, UserId userId) => resourceId % 2 != 0;
     }
@@ -54,7 +54,7 @@ namespace Authorizers
     {
     }
 
-    public class Factory : Company
+    public class Corporation : Company
     {
     }
 
